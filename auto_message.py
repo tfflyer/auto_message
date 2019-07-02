@@ -13,6 +13,8 @@ from threading import Timer
 from wxpy import *
 import requests
 bot = None
+
+
 def get_news1():
 #获取金山词霸每日一句，英文和翻译
     url = "http://open.iciba.com/dsapi/"
@@ -39,17 +41,19 @@ def send_mes(to_l, text, tw_mobile='+16602353919'):
 
 
 if __name__ == '__main__':
-    greetings = {'6': 'Good moning!'}
-    content=list(get_news1())
-    print(content[0])
+    greetings = {'17': 'Good evening!'}
     print('Script running')
     while True:
         now = datetime.now()
         print('time', now)
         for key in greetings.keys():
             if now.hour == int(key):
-                greetings.update({'6':content[0]})
+                content=list(get_news1())
+                print(content[0])
+                greetings.update({'17':content[0]})
                 message = greetings.get(key, 'This is a message from tfflyer ')
+                message=str(message)+'This is a message send by jarvis from tfflye'
+                print(message)
                 res = send_mes(to='+8613126883674', text=message)
                 if res:
                     print('Message send ok at:',
